@@ -3,21 +3,32 @@
 
 import { signIn } from "next-auth/react";
 import styles from './login.module.css';
+import { CookiesProvider, useCookies } from 'react-cookie'
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [cookies, setCookie] = useCookies(['token'])
+
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    try{
-      await signIn("credentials", {
-        redirect: true,
-        callbackUrl: "/",
-        username: e.target.username.value,
-        password: e.target.password.value,
-      });
+    const user = { id: 1, name: "User", email: "user@example.com" };
+    if ( e.target.username.value === "user" && e.target.password.value === "password") {
+      setCookie('token', user, { path: '/' })
+      router.push('/');
     }
-    catch(error){
-      console.log(error)
-    }
+    // try{
+    //   await signIn("credentials", {
+    //     redirect: true,
+    //     callbackUrl: "/",
+    //     username: e.target.username.value,
+    //     password: e.target.password.value,
+    //   });
+    // }
+    // catch(error){
+    //   console.log(error)
+    // }
     
   };
 

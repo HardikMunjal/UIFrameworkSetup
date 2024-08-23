@@ -1,7 +1,10 @@
 .container {
     max-width: 100%;
+    max-height: 100%; /* or a specific px/em/rem value */
     margin: 0 auto;
     font-family: Arial, sans-serif;
+    overflow-x: auto; /* or overflow: auto; */
+    white-space: nowrap;
   }
   
   .heading {
@@ -11,12 +14,13 @@
   }
   
   .tabs {
-    display: flex;
+    padding: 10px 20px;
     justify-content: space-around;
-    margin-bottom: 20px;
+    margin: 30px 20px 20px 20px;
   }
   
   .tabButton {
+    margin: 5px;
     padding: 10px 20px;
     cursor: pointer;
     background-color: #f0f0f0;
@@ -40,4 +44,19 @@
     border-radius: 5px;
     background-color: #fafafa;
   }
+
+  .logoutButton {
+    background-color: #0070f3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+    background-color: #005bb5;
+}
   

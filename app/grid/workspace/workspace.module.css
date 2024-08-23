@@ -1,0 +1,4 @@
+.childtable {
+    width: 100%; /* Ensures the table respects the parent's width */
+    overflow-x: auto;
+  }

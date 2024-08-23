@@ -1,18 +1,29 @@
-// app/page.js
-
 "use client";
-
-import { useSession } from "next-auth/react";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+import { CookiesProvider, useCookies } from 'react-cookie'
 import { useRouter } from "next/navigation";
-import TabOne from './grid/object/page';
-import TabTwo from './grid/object/page';
+import TabOne from './grid/user/page';
+import TabTwo from './grid/workspace/page';
 import TabThree from './grid/object/page';
 import styles from './styles/Home.module.css';
 export default function HomePage() {
-  const { data: session, status } = useSession();
+  const [cookies, setCookie, removeCookie] = useCookies(['token'])
+  //const [cookies, setCookie, removeCookie] = useCookies(['token'])
+  let status;
+  if (Object.keys(cookies).length) {
+    status = 'authenticated';
+  } else {
+    status = 'unauthenticated';
+  }
+
+
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState('tab1');
+  const [activeTab, setActiveTab] = useState('tab2');
+
+  const handleLogout = () => {
+    removeCookie('token', { path: '/' });
+    router.push('/login'); // Redirect to login page or any other page
+  };
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -41,33 +52,32 @@ export default function HomePage() {
   if (status === "authenticated") {
     return (
       <div className={styles.container}>
-        <h1 className={styles.heading}>Home Page with Tabs</h1>
+        <button onClick={handleLogout}>Logout</button>
         <div className={styles.tabs}>
           <button
             className={`${styles.tabButton} ${activeTab === 'tab1' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('tab1')}
           >
-            Tab 1
+            USER MANAGEMENT
           </button>
           <button
             className={`${styles.tabButton} ${activeTab === 'tab2' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('tab2')}
           >
-            Tab 2
+            WORKSPACE MANAGEMENT
           </button>
           <button
             className={`${styles.tabButton} ${activeTab === 'tab3' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('tab3')}
           >
-            Tab 3
+            OBJECT MANAGEMENT
           </button>
         </div>
         <div className={styles.tabContent}>
           {renderTabContent()}
         </div>
         <div>
-          <h1>Welcome to the Home Page!</h1>
-          <p>You are logged in as {session.user.name}</p>
+          {/* <p>You are logged in as {session.user.name}</p> */}
         </div>
       </div>
 

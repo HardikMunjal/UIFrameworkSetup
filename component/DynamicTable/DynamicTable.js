@@ -6,7 +6,6 @@ import EditModal from '../EditModal/EditModal';
 
 const DynamicTable = ({ data }) => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [filters, setFilters] = useState({});
     const [sortConfig, setSortConfig] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5); // Adjust the number of items per page
@@ -15,42 +14,10 @@ const DynamicTable = ({ data }) => {
 
     const columns = Object.keys(data[0]);
 
-    // Handle multi-select filter change
-    const handleFilterChange = (column, value) => {
-        setFilters((prevFilters) => ({
-            ...prevFilters,
-            [column]: prevFilters[column]
-                ? prevFilters[column].includes(value)
-                    ? prevFilters[column].filter((v) => v !== value)
-                    : [...prevFilters[column], value]
-                : [value],
-        }));
-    };
-
-    // Apply filters to the data
-    const filteredData = useMemo(() => {
-        return data.filter((item) =>
-            columns.every((column) =>
-                filters[column] && filters[column].length > 0
-                    ? filters[column].includes(item[column])
-                    : true
-            )
-        );
-    }, [filters, data, columns]);
-
-    // Handle searching
-    const searchedData = useMemo(() => {
-        return filteredData.filter((item) =>
-            columns.some((column) =>
-                item[column].toString().toLowerCase().includes(searchTerm.toLowerCase())
-            )
-        );
-    }, [searchTerm, filteredData, columns]);
-
     // Handle sorting
     const sortedData = useMemo(() => {
         if (sortConfig !== null) {
-            return [...searchedData].sort((a, b) => {
+            return [...data].sort((a, b) => {
                 if (a[sortConfig.key] < b[sortConfig.key]) {
                     return sortConfig.direction === 'ascending' ? -1 : 1;
                 }
@@ -60,8 +27,8 @@ const DynamicTable = ({ data }) => {
                 return 0;
             });
         }
-        return searchedData;
-    }, [searchedData, sortConfig]);
+        return data;
+    }, [data, sortConfig]);
 
     // Handle pagination
     const paginatedData = useMemo(() => {
@@ -103,36 +70,28 @@ const DynamicTable = ({ data }) => {
         closeEditModal();
     };
 
+
+    const [selectedRows, setSelectedRows] = useState([]);
+
+  const handleSelectRow = (id) => {
+    if (selectedRows.includes(id)) {
+      setSelectedRows(selectedRows.filter((rowId) => rowId !== id));
+    } else {
+      setSelectedRows([...selectedRows, id]);
+    }
+  };
+
+  const handleSelectAll = () => {
+    if (selectedRows.length === data.length) {
+      setSelectedRows([]);
+    } else {
+      setSelectedRows(data.map((item) => item.id));
+    }
+  };
+
+
     return (
         <div className={styles.tableWrapper}>
-            {/* Filters */}
-            <div className={styles.filters}>
-                {/* {columns.map((column) => ( */}
-                {['Name'].map((column) => (
-                    <div key={column} className={styles.filterGroup}>
-                        <label>{column}</label>
-                        <select
-                            multiple
-                            value={filters[column] || []}
-                            onChange={(e) =>
-                                handleFilterChange(
-                                    column,
-                                    Array.from(e.target.selectedOptions, (option) => option.value)
-                                )
-                            }
-                            className={styles.filterSelect}
-                        >
-                            {[...new Set(data.map((item) => item[column]))].map((value) => (
-                                <option key={value} value={value}>
-                                    {value}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                ))}
-            </div>
-
-
             {/* Search Bar */}
             <input
                 type="text"
@@ -146,6 +105,13 @@ const DynamicTable = ({ data }) => {
             <table className={styles.table}>
                 <thead>
                     <tr>
+                        <th>
+                            <input
+                            type="checkbox"
+                            checked={selectedRows.length === data.length}
+                            onChange={handleSelectAll}
+                            />
+                         </th>
                         {columns.map((column) => (
                             <th key={column} onClick={() => handleSort(column)}>
                                 {column}{' '}
@@ -162,6 +128,13 @@ const DynamicTable = ({ data }) => {
                 <tbody>
                     {paginatedData.map((row, index) => (
                         <tr key={row.id || index}> {/* Ensure `row.id` is unique for each row */}
+                            <td>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedRows.includes(row.id)}
+                                    onChange={() => handleSelectRow(row.id)}
+                                />
+                            </td>
                             {columns.map((column) => (
                                 <td key={column}>{row[column]}</td>
                             ))}

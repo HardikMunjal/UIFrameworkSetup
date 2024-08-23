@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import MultiSelectFilter from '../../../component/MultiSelectFilter/MultiSelectFilter';
 import DynamicTable from '../../../component/DynamicTable/DynamicTable';
-import styles from './object.module.css';
+import styles from './workspace.module.css';
 
 export default function Home() {
   const initialData = [
@@ -25,7 +25,7 @@ export default function Home() {
   
     // Add more rows as needed
   ];
-  const [objectData, setObjectData] = useState(initialData);
+  const [workspaceData, setWorkspaceData] = useState(initialData);
 
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [options, setOptions] = useState([]);
@@ -42,9 +42,9 @@ export default function Home() {
 
   useEffect(() => {
     // First side effect
-    fetch('http://localhost:5000/objects')
+    fetch('http://localhost:5000/workspaces')
       .then(response => response.json())
-      .then(data => setObjectData(data));
+      .then(data => setWorkspaceData(data));
   }, []); // Run only once on mount
 
 
@@ -65,7 +65,7 @@ export default function Home() {
         placeholder="Select options"
       />
     <div className={styles.childtable}>
-      <DynamicTable data={objectData} onSave={handleSave} />
+      <DynamicTable data={workspaceData} onSave={handleSave} />
     </div>
     </div>
   );
