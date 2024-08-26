@@ -7,30 +7,21 @@ import styles from './workspace.module.css';
 
 export default function Home() {
   const initialData = [
-    { id: 1,Name: 'John Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 2,Name: 'Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 3,Name: 'John', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 4,Name: 'John Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 5,Name: 'Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 6,Name: 'John', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 7,Name: 'John Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 8,Name: 'Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 9,Name: 'John', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 10,Name: 'John Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 11,Name: 'Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 12,Name: 'John', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 13,Name: 'John Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 14,Name: 'Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 15,Name: 'John', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-  
-    // Add more rows as needed
-  ];
+     ];
   const [workspaceData, setWorkspaceData] = useState(initialData);
 
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [options, setOptions] = useState([]);
+  const [filters, setFilters] = useState([]);
+  const [page, setPage] = useState('0');
+  const [count, setCount] = useState('0');
 
-  
+  const handleFilters = (updatedFilters) => {
+    console.log(updatedFilters)
+    setPage(updatedFilters.currentPage)
+    console.log(page)
+    //setFilters(updatedFilters);
+  };  
 
   const handleSave = (updatedRow) => {
     setData((prevData) =>
@@ -42,10 +33,16 @@ export default function Home() {
 
   useEffect(() => {
     // First side effect
-    fetch('http://localhost:5000/workspaces')
+    let pno= page || 1;
+    fetch(`http://localhost:5000/workspaces?page=${pno}`)
       .then(response => response.json())
-      .then(data => setWorkspaceData(data));
-  }, []); // Run only once on mount
+      .then(data => {
+        setCount(data[0].total_count)
+        data.forEach(e => {delete e.total_count});
+        setWorkspaceData(data)
+      }
+    );
+  }, [page]); // Run only once on mount
 
 
 
@@ -58,14 +55,14 @@ export default function Home() {
 
   return (
     <div>
-      <MultiSelectFilter
+      {/* <MultiSelectFilter
         options={options}
         selectedOptions={selectedOptions}
         onChange={setSelectedOptions}
         placeholder="Select options"
-      />
+      /> */}
     <div className={styles.childtable}>
-      <DynamicTable data={workspaceData} onSave={handleSave} />
+      <DynamicTable data={workspaceData} count={count} onSave={handleSave} onFilterTrigger={handleFilters} />
     </div>
     </div>
   );

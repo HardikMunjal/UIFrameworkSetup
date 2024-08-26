@@ -52,10 +52,10 @@ export default function HomePage() {
   if (status === "authenticated") {
     return (
       <div className={styles.container}>
-        <button onClick={handleLogout}>Logout</button>
+        <button className={styles.logoutButton} onClick={handleLogout}>Logout</button>
         <div className={styles.tabs}>
           <button
-            className={`${styles.tabButton} ${activeTab === 'tab1' ? styles.activeTab : ''}`}
+            className={`${styles.tabButtonDisabled} ${activeTab === 'tab1' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('tab1')}
           >
             USER MANAGEMENT
@@ -67,7 +67,7 @@ export default function HomePage() {
             WORKSPACE MANAGEMENT
           </button>
           <button
-            className={`${styles.tabButton} ${activeTab === 'tab3' ? styles.activeTab : ''}`}
+            className={`${styles.tabButtonDisabled} ${activeTab === 'tab3' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('tab3')}
           >
             OBJECT MANAGEMENT

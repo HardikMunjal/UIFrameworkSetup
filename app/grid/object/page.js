@@ -6,30 +6,20 @@ import DynamicTable from '../../../component/DynamicTable/DynamicTable';
 import styles from './object.module.css';
 
 export default function Home() {
-  const initialData = [
-    { id: 1,Name: 'John Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 2,Name: 'Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 3,Name: 'John', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 4,Name: 'John Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 5,Name: 'Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 6,Name: 'John', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 7,Name: 'John Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 8,Name: 'Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 9,Name: 'John', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 10,Name: 'John Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 11,Name: 'Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 12,Name: 'John', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 13,Name: 'John Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 14,Name: 'Doe', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-    { id: 15,Name: 'John', Age: 30, Occupation: 'Developer', Country: 'USA', Name1: 'John Doe', Age1: 30, Occupation1: 'Developer', Country1: 'USA',Name2: 'John Doe', Age2: 30, Occupation2: 'Developer', Country2: 'USA',Name3: 'John Doe', Age3: 30, Occupation3: 'Developer', Country3: 'USA' },
-  
-    // Add more rows as needed
-  ];
+  const initialData = []
   const [objectData, setObjectData] = useState(initialData);
 
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [options, setOptions] = useState([]);
+  const [filters, setFilters] = useState([]);
+  const [page, setPage] = useState('0');
 
+  const handleFilters = (updatedFilters) => {
+    console.log(updatedFilters)
+    setPage(updatedFilters.currentPage)
+    console.log(page)
+    //setFilters(updatedFilters);
+  };
   
 
   const handleSave = (updatedRow) => {
@@ -45,7 +35,7 @@ export default function Home() {
     fetch('http://localhost:5000/objects')
       .then(response => response.json())
       .then(data => setObjectData(data));
-  }, []); // Run only once on mount
+  }, [page]); // Run only once on mount
 
 
 
@@ -58,14 +48,14 @@ export default function Home() {
 
   return (
     <div>
-      <MultiSelectFilter
+      {/* <MultiSelectFilter
         options={options}
         selectedOptions={selectedOptions}
         onChange={setSelectedOptions}
         placeholder="Select options"
-      />
+      /> */}
     <div className={styles.childtable}>
-      <DynamicTable data={objectData} onSave={handleSave} />
+      <DynamicTable data={objectData} onSave={handleSave} onFilterTrigger={handleFilters}/>
     </div>
     </div>
   );

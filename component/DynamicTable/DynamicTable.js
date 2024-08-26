@@ -4,17 +4,25 @@ import styles from './DynamicTable.module.css';
 import EditModal from '../EditModal/EditModal';
 
 
-const DynamicTable = ({ data }) => {
+const DynamicTable = ({ data, count , onSave, onFilterTrigger }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [sortConfig, setSortConfig] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5); // Adjust the number of items per page
+    const [itemsPerPage] = useState(1); // Adjust the number of items per page
     const [selectedRow, setSelectedRow] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    
 
-    const columns = Object.keys(data[0]);
+    let filters = {
+        currentPage: 1,
+        sortColumn:''
+    }
 
+    const columns = data.length && Object.keys(data[0]) || [];
+    
+    let total_page_count = count;
     // Handle sorting
+    
     const sortedData = useMemo(() => {
         if (sortConfig !== null) {
             return [...data].sort((a, b) => {
@@ -34,10 +42,13 @@ const DynamicTable = ({ data }) => {
     const paginatedData = useMemo(() => {
         const indexOfLastItem = currentPage * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+        //console.log(onFilterTrigger)
+        filters.currentPage = currentPage;
+        onFilterTrigger(filters)
         return sortedData.slice(indexOfFirstItem, indexOfLastItem);
     }, [currentPage, sortedData, itemsPerPage]);
 
-    const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+    const totalPages = Math.ceil(total_page_count / itemsPerPage);
 
     const handleSort = (column) => {
         let direction = 'ascending';

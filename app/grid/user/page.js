@@ -12,6 +12,14 @@ export default function Home() {
   const [options, setOptions] = useState([]);
   const [userData, setUserData] = useState(initialData);
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [page, setPage] = useState('0');
+
+  const handleFilters = (updatedFilters) => {
+    console.log(updatedFilters)
+    setPage(updatedFilters.currentPage)
+    console.log(page)
+    //setFilters(updatedFilters);
+  };
 
   const handleSave = (updatedRow) => {
     setData((prevData) =>
@@ -39,14 +47,14 @@ export default function Home() {
 
   return (
     <div>
-      <MultiSelectFilter
+      {/* <MultiSelectFilter
         options={options}
         selectedOptions={selectedOptions}
         onChange={setSelectedOptions}
         placeholder="Select options"
-      />
+      /> */}
     <div className={styles.childtable}>
-      <DynamicTable data={userData} onSave={handleSave} />
+      <DynamicTable data={userData} onSave={handleSave} onFilterTrigger={handleFilters}/>
     </div>
     </div>
   );
