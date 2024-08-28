@@ -88,3 +88,17 @@
   color: white;
   border-color: #507680;
 }
+
+.parentBox {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  gap: 10px; /* Adds space between the divs */
+}
+
+.childBox {
+  margin-bottom: 10px;
+  padding: 20px;
+  height: 10px;
+  text-align: center;
+  line-height: 10px; /* Centers text vertically */
+}

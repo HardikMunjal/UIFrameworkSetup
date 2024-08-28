@@ -1,15 +1,15 @@
 // components/MultiSelectDropdown.js
 import { useState, useEffect, useRef } from 'react';
 
-const MultiSelectDropdown = ({ options, selectedOptions, onChange, placeholder }) => {
+const MultiSelectDropdown = ({ options, selectedOptions, id, onChange, placeholder }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   const handleSelect = (option) => {
     if (selectedOptions.includes(option)) {
-      onChange(selectedOptions.filter((item) => item !== option));
+      onChange(selectedOptions.filter((item) => item !== option),id);
     } else {
-      onChange([...selectedOptions, option]);
+      onChange([...selectedOptions, option],id);
     }
   };
 
