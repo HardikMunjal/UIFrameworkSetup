@@ -67,7 +67,7 @@ export default function HomePage() {
             WORKSPACE MANAGEMENT
           </button>
           <button
-            className={`${styles.tabButtonDisabled} ${activeTab === 'tab3' ? styles.activeTab : ''}`}
+            className={`${styles.tabButton} ${activeTab === 'tab3' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('tab3')}
           >
             OBJECT MANAGEMENT

@@ -48,12 +48,19 @@ export default function Home() {
     fetch(`http://localhost:5000/workspaces?page=${pno}`)
       .then(response => response.json())
       .then(data => {
-        setCount(data[0].total_count)
-        data.forEach(e => { delete e.total_count });
         setWorkspaceData(data)
       }
       );
   }, [page]); // Run only once on mount
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/workspaces/count`)
+      .then(response => response.json())
+      .then(data => {
+        setCount(data[0].total_count)
+      }
+      );
+  }, []); // Run only once on mount
 
 
 

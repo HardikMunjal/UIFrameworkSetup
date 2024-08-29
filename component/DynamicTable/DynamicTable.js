@@ -3,6 +3,7 @@ import React, { useState, useMemo } from 'react';
 import styles from './DynamicTable.module.css';
 import EditModal from '../EditModal/EditModal';
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
+import Pagination from '../Pagination/Pagination';
 
 
 const DynamicTable = ({ data, dropdownData, onDropdownSelect, count, onSave, onFilterTrigger }) => {
@@ -49,6 +50,7 @@ const DynamicTable = ({ data, dropdownData, onDropdownSelect, count, onSave, onF
         }
         return data;
     }, [data, sortConfig]);
+
 
     // Handle pagination
     const paginatedData = useMemo(() => {
@@ -115,20 +117,20 @@ const DynamicTable = ({ data, dropdownData, onDropdownSelect, count, onSave, onF
 
     return (
         <div className={styles.tableWrapper}>
-           {dropdownData && dropdownData.length && (
-            <div className={styles.parentBox}>
-                {dropdownData.map((drop) => (
-                    <div className={styles.childBox}>
-                        <MultiSelectFilter
-                            options={drop.data}
-                            selectedOptions={drop.selectedOption}
-                            id={drop.id}
-                            onChange={setDropSelectedOptions}
-                            placeholder={drop.placeholder}
-                        />
-                    </div>
-                ))}
-            </div>
+            {dropdownData && dropdownData.length && (
+                <div className={styles.parentBox}>
+                    {dropdownData.map((drop) => (
+                        <div className={styles.childBox}>
+                            <MultiSelectFilter
+                                options={drop.data}
+                                selectedOptions={drop.selectedOption}
+                                id={drop.id}
+                                onChange={setDropSelectedOptions}
+                                placeholder={drop.placeholder}
+                            />
+                        </div>
+                    ))}
+                </div>
             )}
             {/* Search Bar */}
             <input
@@ -192,17 +194,13 @@ const DynamicTable = ({ data, dropdownData, onDropdownSelect, count, onSave, onF
 
             {/* Pagination */}
             <div className={styles.pagination}>
-                {Array.from({ length: totalPages }, (_, index) => (
-                    <button
-                        key={index} // This ensures each button has a unique key
-                        onClick={() => handlePageChange(index + 1)}
-                        className={`${styles.pageButton} ${currentPage === index + 1 ? styles.active : ''
-                            }`}
-                    >
-                        {index + 1}
-                    </button>
-                ))}
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                />
             </div>
+
 
             {/* Edit Modal */}
             {isModalOpen && (

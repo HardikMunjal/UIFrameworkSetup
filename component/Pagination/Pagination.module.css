@@ -1,0 +1,31 @@
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .paginationItem {
+    margin: 0 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+  }
+  
+  .paginationItem:hover {
+    background-color: #ddd;
+  }
+  
+  .paginationItem.active {
+    background-color: #a4bcc0;
+    color: white;
+    cursor: default;
+  }
+  
+  .paginationItem:disabled {
+    cursor: not-allowed;
+    background-color: #f9f9f9;
+    color: #aaa;
+  }
+  

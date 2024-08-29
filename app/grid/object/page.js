@@ -8,7 +8,7 @@ import styles from './object.module.css';
 export default function Home() {
   const initialData = []
   const [objectData, setObjectData] = useState(initialData);
-
+  const [count, setCount] = useState('0');
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [options, setOptions] = useState([]);
   const [filters, setFilters] = useState([]);
@@ -37,6 +37,15 @@ export default function Home() {
       .then(data => setObjectData(data));
   }, [page]); // Run only once on mount
 
+  useEffect(() => {
+    fetch(`http://localhost:5000/workspaces/count`)
+      .then(response => response.json())
+      .then(data => {
+        setCount(data[0].total_count)
+      }
+      );
+  }, []); // Run only once on mount
+
 
 
   useEffect(() => {
@@ -55,7 +64,7 @@ export default function Home() {
         placeholder="Select options"
       /> */}
     <div className={styles.childtable}>
-      <DynamicTable data={objectData} onSave={handleSave} onFilterTrigger={handleFilters}/>
+      <DynamicTable data={objectData} count={count} onSave={handleSave} onFilterTrigger={handleFilters}/>
     </div>
     </div>
   );
